@@ -1,0 +1,59 @@
+<div *ngIf="currentCountry" class="edit-form">
+  <h4>Country</h4>
+  <form>
+    <div class="form-group">
+      <label for="code">Code</label>
+      <input
+        type="text"
+        class="form-control"
+        id="code"
+        [(ngModel)]="currentCountry.code"
+        name="code"
+      />
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <input
+        type="text"
+        class="form-control"
+        id="description"
+        [(ngModel)]="currentCountry.description"
+        name="description"
+      />
+    </div>
+
+    <div class="form-group">
+      <label><strong>Status:</strong></label>
+      {{ currentCountry.published ? "Published" : "Pending" }}
+    </div>
+  </form>
+
+  <button
+    class="badge badge-primary mr-2"
+    *ngIf="currentCountry.published"
+    (click)="updatePublished(false)"
+  >
+    UnPublish
+  </button>
+  <button
+    *ngIf="!currentCountry.published"
+    class="badge badge-primary mr-2"
+    (click)="updatePublished(true)"
+  >
+    Publish
+  </button>
+
+  <button class="badge badge-danger mr-2" (click)="deleteCountry()">
+    Delete
+  </button>
+
+  <button type="submit" class="badge badge-success" (click)="updateCountry()">
+    Update
+  </button>
+  <p>{{ message }}</p>
+</div>
+
+<div *ngIf="!currentCountry">
+  <br />
+  <p>Cannot access this Country...</p>
+</div>

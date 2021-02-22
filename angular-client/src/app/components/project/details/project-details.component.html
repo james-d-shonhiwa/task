@@ -1,0 +1,59 @@
+<div *ngIf="currentProject" class="edit-form">
+  <h4>Project</h4>
+  <form>
+    <div class="form-group">
+      <label for="code">Code</label>
+      <input
+        type="text"
+        class="form-control"
+        id="code"
+        [(ngModel)]="currentProject.code"
+        name="code"
+      />
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <input
+        type="text"
+        class="form-control"
+        id="description"
+        [(ngModel)]="currentProject.description"
+        name="description"
+      />
+    </div>
+
+    <div class="form-group">
+      <label><strong>Status:</strong></label>
+      {{ currentProject.activated ? "Activated" : "Pending" }}
+    </div>
+  </form>
+
+  <button
+    class="badge badge-primary mr-2"
+    *ngIf="currentProject.activated"
+    (click)="updateActivated(false)"
+  >
+    UnPublish
+  </button>
+  <button
+    *ngIf="!currentProject.activated"
+    class="badge badge-primary mr-2"
+    (click)="updateActivated(true)"
+  >
+    Publish
+  </button>
+
+  <button class="badge badge-danger mr-2" (click)="deleteProject()">
+    Delete
+  </button>
+
+  <button type="submit" class="badge badge-success" (click)="updateProject()">
+    Update
+  </button>
+  <p>{{ message }}</p>
+</div>
+
+<div *ngIf="!currentProject">
+  <br />
+  <p>Cannot access this Project...</p>
+</div>

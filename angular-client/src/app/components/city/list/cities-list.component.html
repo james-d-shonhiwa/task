@@ -1,0 +1,63 @@
+<div class="list row">
+  <div class="col-md-8">
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search by code"
+        [(ngModel)]="code"
+      />
+      <div class="input-group-append">
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          (click)="searchTitle()"
+        >
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <h4>Cities List</h4>
+    <ul class="list-group">
+      <li
+        class="list-group-item"
+        *ngFor="let city of cities; let i = index"
+        [class.active]="i == currentIndex"
+        (click)="setActiveCity(city, i)"
+      >
+        {{ city.code }} 
+      </li>
+    </ul>
+
+    <button class="m-3 btn btn-sm btn-danger" (click)="removeAllCities()">
+      Remove All
+    </button>
+  </div>
+  <div class="col-md-6">
+    <div *ngIf="currentCity">
+      <h4>City</h4>
+      <div>
+        <label><strong>Code:</strong></label> {{ currentCity.code }}
+      </div>
+      <div>
+        <label><strong>Description:</strong></label>
+        {{ currentCity.description }}
+      </div>
+      <div>
+        <label><strong>Status:</strong></label>
+        {{ currentCity.published ? "Published" : "Pending" }}
+      </div>
+
+      <a class="badge badge-warning" routerLink="/cities/{{ currentCity.id }}">
+        Edit
+      </a>
+    </div>
+
+    <div *ngIf="!currentCity">
+      <br />
+      <p>Please click on a City...</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+<div class="list row">
+  <div class="col-md-8">
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search by code"
+        [(ngModel)]="code"
+      />
+      <div class="input-group-append">
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          (click)="searchTitle()"
+        >
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <h4>Countries List</h4>
+    <ul class="list-group">
+      <li
+        class="list-group-item"
+        *ngFor="let country of countries; let i = index"
+        [class.active]="i == currentIndex"
+        (click)="setActiveCountry(country, i)"
+      >
+        {{ country.code }} 
+      </li>
+    </ul>
+
+    <button class="m-3 btn btn-sm btn-danger" (click)="removeAllCountries()">
+      Remove All
+    </button>
+  </div>
+  <div class="col-md-6">
+    <div *ngIf="currentCountry">
+      <h4>Country</h4>
+      <div>
+        <label><strong>Code:</strong></label> {{ currentCountry.code }}
+      </div>
+      <div>
+        <label><strong>Description:</strong></label>
+        {{ currentCountry.description }}
+      </div>
+      <div>
+        <label><strong>Status:</strong></label>
+        {{ currentCountry.published ? "Published" : "Pending" }}
+      </div>
+
+      <a class="badge badge-warning" routerLink="/countries/{{ currentCountry.id }}">
+        Edit
+      </a>
+    </div>
+
+    <div *ngIf="!currentCountry">
+      <br />
+      <p>Please click on a Country...</p>
+    </div>
+  </div>
+</div>
